@@ -23,8 +23,8 @@ best_model_path = "./best_resnet18.pth"  # eğittiğin model dosyası
 @st.cache_resource
 def load_model_and_classes():
     # Train'de kullandığın sınıf isimlerini al
-    train_dataset = datasets.ImageFolder(root=os.path.join(data_root, "train"))
-    class_names = train_dataset.classes
+    class_names = ["covid-19", "pneumonia", "tuberculosis","normal"]
+   
     num_classes = len(class_names)
 
     # Modeli kur
