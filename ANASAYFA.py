@@ -1,11 +1,18 @@
 import os
 import torch
 import torch.nn as nn
+from anaconda_navigator.utils.telemetry import ANALYTICS
 from torchvision import models, datasets, transforms
 from PIL import Image
 import streamlit as st
 
-# ----------------- AYARLAR -----------------
+
+st.set_page_config(page_icon="📊",menu_items=None,
+                   initial_sidebar_state="expanded", page_title="X-RAY ANALYTICS" )
+
+
+
+# ---------------- AYARLAR -----------------
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # BURALARI KENDİNE GÖRE DÜZENLE
@@ -57,17 +64,18 @@ def predict_image(file, model, class_names, transform):
 
 
 def main():
-    st.title("ResNet18 Image Classification")
-
+    st.title("ResNet18 Image X-RAY Classification")
+    st.write("Model:ResNet18-FineTuning")
+    st.write("Model covid-19, pneumonıa ve tuberculosıs analizleri yapabilir")
     model, class_names, transform = load_model_and_classes()
 
-    uploaded_file = st.file_uploader("Bir resim yükle", type=["jpg", "jpeg", "png"])
+    yüklenen =uploaded_file = st.file_uploader("Bir resim yükle", type=["jpg", "jpeg", "png"])
 
-    if uploaded_file is not None:
-        st.image(uploaded_file, caption="Yüklenen resim", use_column_width=True)
+    if yüklenen is not None:
+        st.image(yüklenen, caption="Yüklenen resim", use_column_width=True)
 
         if st.button("Tahmin Et"):
-            pred_class, conf = predict_image(uploaded_file, model, class_names, transform)
+            pred_class, conf = predict_image(yüklenen, model, class_names, transform)
             st.write(f"**Tahmin:** {pred_class}")
             st.write(f"**Güven:** {conf*100:.2f} %")
 
