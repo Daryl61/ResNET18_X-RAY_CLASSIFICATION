@@ -1,7 +1,6 @@
 import os
 import torch
 import torch.nn as nn
-from anaconda_navigator.utils.telemetry import ANALYTICS
 from torchvision import models, datasets, transforms
 from PIL import Image
 import streamlit as st
